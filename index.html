@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Animo Resources</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #EEF2F5; --bg-dark: #000033; --ink: #000033;
+  --ink-light: #5a5a80; --accent: #F2055C;
+  --neon-yellow: #ECFF00; --border-light: #dde3ea;
+  --font: 'Montserrat', sans-serif;
+  --radius: 4px; --radius-lg: 8px;
+  --shadow: 0 1px 3px rgba(0,0,51,0.08), 0 4px 16px rgba(0,0,51,0.05);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); min-height: 100vh; }
+header {
+  background: var(--bg-dark); color: #EEF2F5; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid rgba(238,242,245,0.08);
+}
+.logo { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
+.logo-dot { width: 8px; height: 8px; background: #ECFF00; border-radius: 50%; }
+.header-note { font-size: 12px; color: rgba(238,242,245,0.35); letter-spacing: 0.04em; }
+.hero {
+  background: var(--bg-dark); color: #EEF2F5;
+  padding: 3rem 2rem 3.5rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(242,5,92,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 860px; margin: 0 auto; position: relative; }
+.hero-tag {
+  display: inline-block; font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #ECFF00;
+  border: 1px solid rgba(236,255,0,0.35); padding: 4px 10px;
+  border-radius: 2px; margin-bottom: 1.25rem;
+}
+.hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; font-weight: 700; }
+.hero h1 em { font-style: italic; color: #ECFF00; }
+.hero-sub { font-size: 15px; color: rgba(238,242,245,0.55); max-width: 480px; line-height: 1.7; }
+.main { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+.section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1.25rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.resource-btn {
+  background: #fff; border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+  text-decoration: none; color: var(--ink); box-shadow: var(--shadow);
+  transition: all 0.2s ease; display: flex; flex-direction: column; gap: 8px;
+}
+.resource-btn:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(242,5,92,0.12); transform: translateY(-2px); }
+.btn-title { font-size: 14px; font-weight: 600; line-height: 1.3; }
+.btn-url { font-size: 11px; color: var(--ink-light); }
+.btn-arrow { font-size: 18px; color: var(--accent); margin-top: auto; padding-top: 8px; }
+.loading { font-size: 13px; color: var(--ink-light); padding: 2rem 0; }
+.loading span { animation: pulse 1.2s ease-in-out infinite; display: inline-block; }
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+.error-msg { font-size: 13px; color: var(--accent); padding: 1rem; background: #fff; border-left: 3px solid var(--accent); border-radius: var(--radius); }
+footer { background: var(--bg-dark); color: rgba(238,242,245,0.3); text-align: center; padding: 1.5rem 2rem; font-size: 12px; letter-spacing: 0.04em; border-top: 1px solid rgba(236,255,0,0.08); }
+@media (max-width: 600px) { .main { padding: 1.5rem 1rem 3rem; } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <a href="/" style="text-decoration:none;">
+  <img src="https://animo-sig.s3.eu-west-2.amazonaws.com/ANIMO+LOGO+-+MASTER+WHITE.png" alt="Animo" style="height:28px;width:auto;display:block;"/>
+</a>
+  <span class="header-note">resources.madebyanimo.com</span>
+</header>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Internal resources</div>
+    <h1>Everything in <em>one place.</em></h1>
+    <p class="hero-sub">A central hub for all Animo tools, calculators, and resources. Select a resource below to get started.</p>
+  </div>
+</div>
+<div class="main">
+  <div class="section-label">Available resources</div>
+  <div class="grid" id="grid">
+    <div class="loading"><span>Fetching resources...</span></div>
+  </div>
+</div>
+<footer>
+  Made by Animo &mdash; <a href="https://www.madebyanimo.com" target="_blank" style="color:#FFFFFF;text-decoration:none;font-weight:600;letter-spacing:0.04em;">madebyanimo.com</a>
+</footer>
+<script>
+const GITHUB_USER = 'AnimoChris';
+const EXCLUDED = [GITHUB_USER.toLowerCase() + '.github.io'];
+
+async function fetchTitle(url) {
+  try {
+    const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(url));
+    const data = await res.json();
+    const match = data.contents && data.contents.match(/<title[^>]*>([^<]+)<\/title>/i);
+    return match ? match[1].trim() : null;
+  } catch(e) { return null; }
+}
+
+async function init() {
+  const grid = document.getElementById('grid');
+  try {
+    const res = await fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&type=public');
+    const repos = await res.json();
+    if (!Array.isArray(repos)) throw new Error('Bad response');
+    const pagesRepos = repos.filter(r => !EXCLUDED.includes(r.name.toLowerCase()) && r.has_pages);
+    if (pagesRepos.length === 0) {
+      grid.innerHTML = '<p class="error-msg">No published GitHub Pages repos found.</p>';
+      return;
+    }
+    grid.innerHTML = '';
+    await Promise.all(pagesRepos.map(async (repo) => {
+      const url = 'https://resources.madebyanimo.com/' + repo.name + '/';
+      const title = await fetchTitle(url) || repo.name;
+      const a = document.createElement('a');
+      a.className = 'resource-btn';
+      a.href = url;
+      a.innerHTML = '<div class="btn-title">' + title + '</div><div class="btn-url">/' + repo.name + '</div><div class="btn-arrow">&#8594;</div>';
+      grid.appendChild(a);
+    }));
+  } catch(err) {
+    grid.innerHTML = '<p class="error-msg">Could not load resources. Please try refreshing.</p>';
+  }
+}
+init();
+</script>
+</body>
+</html>
